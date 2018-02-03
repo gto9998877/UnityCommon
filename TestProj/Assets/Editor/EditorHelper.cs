@@ -170,6 +170,54 @@ public class EditorHelper : MonoBehaviour {
 		UiObject[] uiArray = go.GetComponentsInChildren<UiObject> ();
 
 		foreach (UiObject uiObj in uiArray) {
+			ScrollRect scrView = uiObj.gameObject.GetComponent<ScrollRect> ();
+			if (scrView != null) {
+				sw.WriteLine("\tpublic ScrollRect m_" + uiObj.gameObject.name + ";"); 
+				continue;
+			}
+
+			Dropdown dropDown = uiObj.gameObject.GetComponent<Dropdown> ();
+			if (dropDown != null) {
+				sw.WriteLine("\tpublic Dropdown m_" + uiObj.gameObject.name + ";"); 
+				continue;
+			}
+
+			InputField inp = uiObj.gameObject.GetComponent<InputField> ();
+			if (inp != null) {
+				sw.WriteLine("\tpublic InputField m_" + uiObj.gameObject.name + ";"); 
+				continue;
+			}
+
+			Scrollbar scr = uiObj.gameObject.GetComponent<Scrollbar> ();
+			if (scr != null) {
+				sw.WriteLine("\tpublic Scrollbar m_" + uiObj.gameObject.name + ";"); 
+				continue;
+			}
+
+			Slider sli = uiObj.gameObject.GetComponent<Slider> ();
+			if (sli != null) {
+				sw.WriteLine("\tpublic Slider m_" + uiObj.gameObject.name + ";"); 
+				continue;
+			}
+
+			Toggle tog = uiObj.gameObject.GetComponent<Toggle> ();
+			if (tog != null) {
+				sw.WriteLine("\tpublic Toggle m_" + uiObj.gameObject.name + ";"); 
+				continue;
+			}
+
+			Button btn = uiObj.gameObject.GetComponent<Button> ();
+			if (btn != null) {
+				sw.WriteLine("\tpublic Button m_" + uiObj.gameObject.name + ";"); 
+				continue;
+			}
+
+			RawImage ri = uiObj.gameObject.GetComponent<RawImage> ();
+			if (ri != null) {
+				sw.WriteLine("\tpublic RawImage m_" + uiObj.gameObject.name + ";"); 
+				continue;
+			}
+
 			Image im = uiObj.gameObject.GetComponent<Image> ();
 			if (im != null) {
 				sw.WriteLine("\tpublic Image m_" + uiObj.gameObject.name + ";"); 
@@ -264,6 +312,46 @@ public class EditorHelper : MonoBehaviour {
 
 			foreach (UiObject uiObj in uiArray) {
 				FieldInfo fi = dialog.GetType().GetField ("m_" + uiObj.gameObject.name);
+				if (uiObj.gameObject.GetComponent<ScrollRect> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<ScrollRect> ());
+					continue;
+				}
+
+				if (uiObj.gameObject.GetComponent<Dropdown> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<Dropdown> ());
+					continue;
+				}
+
+				if (uiObj.gameObject.GetComponent<InputField> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<InputField> ());
+					continue;
+				}
+					
+				if (uiObj.gameObject.GetComponent<Scrollbar> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<Scrollbar> ());
+					continue;
+				}
+
+				if (uiObj.gameObject.GetComponent<Slider> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<Slider> ());
+					continue;
+				}
+
+				if (uiObj.gameObject.GetComponent<Toggle> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<Toggle> ());
+					continue;
+				}
+
+				if (uiObj.gameObject.GetComponent<Button> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<Button> ());
+					continue;
+				}
+
+				if (uiObj.gameObject.GetComponent<RawImage> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<RawImage> ());
+					continue;
+				}
+
 				if (uiObj.gameObject.GetComponent<Image> () != null) {
 					fi.SetValue (dialog, uiObj.gameObject.GetComponent<Image> ());
 					continue;

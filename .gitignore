@@ -7,3 +7,8 @@ TestProj/Temp
 *.meta
 *.prefab
 *.unity
+*.renderTexture
+*.ttf
+*.mat
+*.png
+*.fontsettings

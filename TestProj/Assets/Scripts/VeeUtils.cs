@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace vee 
 {
@@ -123,5 +124,16 @@ namespace vee
 		}
 
 		#endregion // String
+
+		#region EventSystem
+		public static bool IsClickUI () {
+			if (Input.GetMouseButton (0)) {
+				return (EventSystem.current.IsPointerOverGameObject () || GUIUtility.hotControl != 0);
+			}
+
+			return false;
+		}
+
+		#endregion //EventSystem
 	}
 }
