@@ -19,16 +19,27 @@ namespace vee
 			GUI.Label (new Rect(screenPos.x, screenPos.y, Screen.width, Screen.height), content);
 		}
 
+		#region LOG 
 		/// <summary>
 		/// 输出调试信息(仅在编辑器中，release无效)
 		/// </summary>
 		/// <param name="content">Content.</param>
-		public static void DebugLogInEditor (string content)
+		public static void LogInEditor (string content)
 		{
 			#if UNITY_EDITOR
 			Debug.Log (content);
 			#endif
 		}
+
+		public static void LogErrorInEditor (string content)
+		{
+			#if UNITY_EDITOR
+			Debug.LogError (content);
+			#endif
+		}
+		#endregion
+
+
 
 		#region Time
 		/// DateTime时间格式转换为13位的Unix时间戳（毫秒单位）

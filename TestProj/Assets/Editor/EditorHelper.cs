@@ -71,11 +71,18 @@ public class EditorHelper : MonoBehaviour {
 
 	#region common functions
 	public static void deleteFileFromProject (string fileNameWithPath, bool logMsg = true) {
-		if (logMsg) {
-			Debug.Log ("The File : " + fileNameWithPath + " is DELETED ");
+		if (File.Exists (fileNameWithPath + ".meta")) {
+			File.Delete (fileNameWithPath + ".meta");
+			if (logMsg) {
+				Debug.Log ("The File : " + fileNameWithPath + ".meta" + " is DELETED ");
+			}
 		}
-		File.Delete (fileNameWithPath + ".meta");
-		File.Delete (fileNameWithPath);
+		if (File.Exists (fileNameWithPath)) {
+			File.Delete (fileNameWithPath);
+			if (logMsg) {
+				Debug.Log ("The File : " + fileNameWithPath + " is DELETED ");
+			}
+		}
 	}
 	#endregion // common functions
 
