@@ -37,7 +37,7 @@ namespace vee
 			Debug.LogError (content);
 			#endif
 		}
-		#endregion
+		#endregion //LOG
 
 
 
@@ -98,6 +98,30 @@ namespace vee
 		}
 
 
-		#endregion
+		#endregion //Time
+
+		#region String
+		/// <summary>
+		/// 给string加上颜色信息
+		/// </summary>
+		/// <returns>string with color</returns>
+		/// <param name="src">Source string</param>
+		/// <param name="colorName">Color name, you can use color name in rich text , also can see vee.ColorName </param>
+		public static string DecorateWithColor (string src, string colorName )
+		{
+			return "<color=" + colorName + ">" + src + "</color>";
+		}
+		/// <summary>
+		/// 给string加上字体大小信息
+		/// </summary>
+		/// <returns>string with size.</returns>
+		/// <param name="src">Source string</param>
+		/// <param name="size">Size number</param>
+		public static string DecorateWithSize (string src, int size )
+		{
+			return "<size=" + size + ">" + src + "</size>";
+		}
+
+		#endregion // String
 	}
 }

@@ -173,7 +173,15 @@ public class EditorHelper : MonoBehaviour {
 			Image im = uiObj.gameObject.GetComponent<Image> ();
 			if (im != null) {
 				sw.WriteLine("\tpublic Image m_" + uiObj.gameObject.name + ";"); 
+				continue;
 			}
+
+			Text te = uiObj.gameObject.GetComponent<Text> ();
+			if (te != null) {
+				sw.WriteLine("\tpublic Text m_" + uiObj.gameObject.name + ";"); 
+			}
+
+
 		}
 
 		sw.Write (postContent.ToString());
@@ -258,6 +266,12 @@ public class EditorHelper : MonoBehaviour {
 				FieldInfo fi = dialog.GetType().GetField ("m_" + uiObj.gameObject.name);
 				if (uiObj.gameObject.GetComponent<Image> () != null) {
 					fi.SetValue (dialog, uiObj.gameObject.GetComponent<Image> ());
+					continue;
+				}
+
+				if (uiObj.gameObject.GetComponent<Text> () != null) {
+					fi.SetValue (dialog, uiObj.gameObject.GetComponent<Text> ());
+					continue;
 				}
 			}
 		}
