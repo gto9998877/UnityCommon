@@ -10,9 +10,9 @@ using UnityEngine.UI;
 using vee;
 public class EditorHelper : MonoBehaviour {
 	#region Menu items
-	[MenuItem("vee/Check Components")]
-	static void CheckComponents () {
-		Debug.Log ("CheckComponents Start");
+	[MenuItem("vee/Check Hierarchy")]
+	static void CheckHierarchy () {
+		Debug.Log ("Check Hierarchy Start");
 		GameObject[] objs = FindObjectsOfType(typeof(GameObject)) as GameObject[]; //获取所有gameobject元素给数组obj
 		List<string> audioListeners = new List<string>();
 		foreach (GameObject obj in objs)    //遍历所有gameobject
@@ -39,7 +39,7 @@ public class EditorHelper : MonoBehaviour {
 			Debug.LogError (ws);
 		}
 			
-		Debug.Log ("CheckComponents Finish");
+		Debug.Log ("Check Hierarchy Finish");
 		AssetDatabase.Refresh ();
 	}
 		
