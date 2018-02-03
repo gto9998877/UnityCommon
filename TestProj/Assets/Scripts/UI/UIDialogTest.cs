@@ -32,4 +32,8 @@ public class UIDialogTest : UIDialog {
 			vee.Utils.LogInEditor ("clickUI");
 		}
 	}
+
+	void DialogShowEvent () {
+		vee.Utils.LogInEditor ("DialogShowEvent");
+	}
 }

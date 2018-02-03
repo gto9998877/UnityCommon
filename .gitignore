@@ -12,3 +12,5 @@ TestProj/Temp
 *.mat
 *.png
 *.fontsettings
+*.anim
+*.controller
