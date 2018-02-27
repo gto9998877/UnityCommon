@@ -56,6 +56,7 @@ public class UIDialogTest : UIDialog {
 	public void OnButtonAClick () {
 		vee.Utils.LogInEditor ("OnButtonAClick");
 
+		vee.Utils.LoadNewSceneWithLoadingDialog ("newSceneB");
 	}
 
 
