@@ -1,4 +1,4 @@
-//================Generate Time : 02/03/2018 16:33:45================
+//================Generate Time : 02/27/2018 13:45:40================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +19,7 @@ public class Player
 public class UIDialogTest : UIDialog {
 	//=====================  Auto Generate UI Code Start, DO NOT MODIFY !========================
 	public Image m_img1;
+	public RawImage m_RawImage;
 	public Text m_Text;
 	public Button m_ButtonA;
 	public Text m_btnAText;
@@ -56,17 +57,22 @@ public class UIDialogTest : UIDialog {
 	public void OnButtonAClick () {
 		vee.Utils.LogInEditor ("OnButtonAClick");
 
-		vee.Utils.LoadNewSceneWithLoadingDialog ("newSceneB");
+		SceneMgr.LoadSceneWithLoadingDialog ("newSceneB");
 	}
 
 
 	void Update () {
-		if (vee.Utils.IsClickUI()) {
-			vee.Utils.LogInEditor ("clickUI");
-		}
+//		if (vee.Utils.IsClickUI()) {
+//			vee.Utils.LogInEditor ("clickUI");
+//		}
 	}
 
 	void DialogShowEvent () {
 		vee.Utils.LogInEditor ("DialogShowEvent");
+	}
+
+	public void OnImageClick () {
+		vee.Utils.LogInEditor ("OnImageClick");
+
 	}
 }

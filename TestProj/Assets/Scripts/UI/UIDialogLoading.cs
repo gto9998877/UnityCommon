@@ -22,7 +22,7 @@ public class UIDialogLoading : UIDialog {
 	void Start()
 	{
 		vee.Utils.LogInEditor ("loading Start");
-		async = SceneManager.LoadSceneAsync(Global.loadName/*, LoadSceneMode.Additive*/);
+		async = SceneManager.LoadSceneAsync(Global.loadName, LoadSceneMode.Additive);
 		StartCoroutine(loadScene());
 	}
 
@@ -59,8 +59,9 @@ public class UIDialogLoading : UIDialog {
 			yield return new WaitForEndOfFrame(); //等待一帧  
 		}  
 
-//		yield return new WaitForSeconds (2f);
-//		SceneManager.UnloadSceneAsync ("LoadingScene");
 		async.allowSceneActivation = true;  //如果加载完成，可以进入场景  
+//		yield return new WaitForSeconds (2f);
+		yield return new WaitForEndOfFrame(); //等待一帧  
+		SceneManager.UnloadSceneAsync ("LoadingScene");
 	}
 }

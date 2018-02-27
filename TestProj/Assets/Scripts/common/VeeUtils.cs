@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 namespace vee 
 {
@@ -136,12 +135,5 @@ namespace vee
 		}
 
 		#endregion //EventSystem
-
-		#region SceneMgr
-		public static void LoadNewSceneWithLoadingDialog(string newSceneName) {
-			Global.loadName = newSceneName;
-			SceneManager.LoadScene ("LoadingScene");
-		}
-		#endregion //SceneMgr
 	}
 }
