@@ -135,5 +135,68 @@ namespace vee
 		}
 
 		#endregion //EventSystem
+
+
+		#region 游戏场景物体
+		/// <summary>
+		/// 查找Hierarchy顶层物体
+		/// </summary>
+		/// <returns>The top object.</returns>
+		/// <param name="name">Name.</param>
+		public static GameObject GetTopObject(string name)  
+		{  
+			UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();  
+			GameObject[] rootObj = scene.GetRootGameObjects();  
+			foreach (GameObject obj in rootObj)  
+			{  
+				if (obj.name == name)  
+				{  
+					return obj;  
+				}  
+			}  
+
+			return null;  
+		}  
+		#endregion
+
+		#region 随机，几何，计算相关
+		/// <summary>
+		/// Randoms the int.
+		/// </summary>
+		/// <returns>The int.</returns>
+		/// <param name="start">Start.</param>
+		/// <param name="end">End.</param>
+		public static int RandomInt (int start, int end) 
+		{
+			int len = end - start;
+			return (int)(Mathf.Floor(Random.value * (len + 1)) + start);
+		}
+			
+		/// <summary>
+		/// Gets the point with angle. (2D)
+		/// </summary>
+		/// <returns>The point with angle.</returns>
+		/// <param name="center">Center.</param>
+		/// <param name="distance">Distance.</param>
+		/// <param name="angle">Angle. 角度值 非弧度</param>
+		public static Vector2 GetPointWithAngle (Vector2 center, float distance, float angle) 
+		{
+			var radian = angle * Mathf.PI / 180;
+			var deltaX = Mathf.Sin(radian) * distance;
+			var deltaY = Mathf.Cos(radian) * distance;				
+			return new Vector2(center.x + deltaX, center.y + deltaY);
+		}
+
+		/// <summary>
+		/// 获取一个平面圆区域内的一个随机点
+		/// </summary>
+		/// <returns>The position circle.</returns>
+		/// <param name="center">Center.</param>
+		/// <param name="radius">Radius.</param>
+		public static Vector2 RandomPosCircle (Vector2 center, float radius) 
+		{
+			return GetPointWithAngle(center, RandomInt(0,100)/100f * radius, RandomInt(0, 360));
+		}
+		#endregion //随机，几何，计算相关
 	}
 }
