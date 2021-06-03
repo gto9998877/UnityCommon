@@ -1,47 +1,55 @@
 using System;
-using UnityEngine;
-public abstract class Singleton<T> where T : class, new()
+
+namespace Vee
 {
-	private static T m_instance;
-	public static T instance
-	{
-		get
+    public abstract class Singleton<T> where T : class, new()
+    {
+        private static T m_instance;
+        public static T instance
         {
-            if (Singleton<T>.m_instance == null)
-		    {
-			    Singleton<T>.m_instance = Activator.CreateInstance<T>();
-			    if (Singleton<T>.m_instance != null)
-			    {
-                    (Singleton<T>.m_instance as Singleton<T>).Init();
-			    }
-		    }
+            get
+            {
+                if (Singleton<T>.m_instance == null)
+                {
+                    Singleton<T>.m_instance = Activator.CreateInstance<T>();
+                    if (Singleton<T>.m_instance != null)
+                    {
 
-            return Singleton<T>.m_instance;
+                        var sing = Singleton<T>.m_instance as Singleton<T>;
+                        if (sing != null)
+                        {
+                            sing.Init();
+                        }
+                    }
+                }
+
+                return Singleton<T>.m_instance;
+            }
         }
-	}
 
-    /*
-     * 没有任何实现的函数，用于保证MonoSingleton在使用前已创建
-     */
-    public void Startup()
-    {
+        /// <summary>
+        /// this function only used to ensure instance
+        /// </summary>
+        public void Startup()
+        {
+
+        }
+
+
+        public static void Release()
+        {
+            if (Singleton<T>.m_instance != null)
+            {
+                Singleton<T>.m_instance = (T)((object)null);
+            }
+        }
+
+        public virtual void Init()
+        {
+
+        }
+
+        //public abstract void Dispose();
 
     }
-
-
-    public static void Release()
-	{
-		if (Singleton<T>.m_instance != null)
-		{
-			Singleton<T>.m_instance = (T)((object)null);
-		}
-	}
-
-    public virtual void Init()
-    {
-
-    }
-
-    public abstract void Dispose();
-
 }

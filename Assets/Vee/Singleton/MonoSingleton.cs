@@ -1,66 +1,93 @@
 using UnityEngine;
+using Vee.UnityExtend;
 
-public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
+namespace Vee
 {
-	private static T m_instance = null;
+    public class MonoSingletonHelper {
+        public const string RootGameObjectName = "MonoSingletonRoot";
 
-	public static T instance
-    {
-        get
-        {
-			if (m_instance == null)
-            {
-            	m_instance = GameObject.FindObjectOfType(typeof(T)) as T;
-                if (m_instance == null)
-                {
-                    GameObject go = new GameObject(typeof(T).Name);
-                    m_instance = go.AddComponent<T>();
-                    GameObject parent = GameObject.Find("Boot");
-                    if (parent != null)
-                    {
-                        go.transform.parent = parent.transform;
-                    }
-                }
+        public static GameObject GetRoot() {
+            var root = GameObject.Find(RootGameObjectName);
+            if (root == null) {
+                root = CreateRootGameObject();
             }
 
-            return m_instance;
+            return root;
+        }
+        static GameObject CreateRootGameObject () {
+            var go = new GameObject(RootGameObjectName);
+            go.AddComponent<DontDestroyObj>();
+            return go;
         }
     }
-
-    /*
-     * √ª”–»Œ∫Œ µœ÷µƒ∫Ø ˝£¨”√”⁄±£÷§MonoSingleton‘⁄ π”√«∞“—¥¥Ω®
-     */
-    public void Startup()
+    
+    public abstract class MonoSingleton<T> : MonoBehaviour
+        where T : MonoSingleton<T>
     {
+        protected static bool _isDestroied;
+        protected static T m_instance;
 
-    }
-
-    private void Awake()
-    {
-        if (m_instance == null)
+        public static T instance
         {
-            m_instance = this as T;
+            get
+            {
+                if (!m_instance && !_isDestroied)
+                {
+                    m_instance = FindObjectOfType<T>();
+                    if (m_instance == null)
+                    {
+                        var go = new GameObject(typeof(T).Name);
+                        m_instance = go.AddComponent<T>();
+                        var parent = MonoSingletonHelper.GetRoot();
+                        if (parent != null)
+                        {
+                            go.transform.SetParent(parent.transform);
+                        }
+                    }
+                }
+
+                return m_instance;
+            }
         }
 
-        DontDestroyOnLoad(gameObject);
-        Init();
+        public void Startup()
+        {
+
+        }
+
+        protected virtual void Awake()
+        {
+            // Â∑≤ÁªèÊúâÂÆû‰æãÂ≠òÂú®‰∫ÜÔºåÂà†Èô§Êñ∞ÁöÑ
+            if (m_instance != null && m_instance != this) {
+                var scriptName = name;
+                var gameObjectName = gameObject.name;
+                // Debug.LogWarning($"MonoSingleton is duplicated, gameobject name [{gameObjectName}], script name [{scriptName}]");
+                enabled = false;
+                gameObject.SetActive(false);
+                this.DestroyGameObject(true);
+                return;
+            }
+            
+            if (m_instance == null)
+            {
+                m_instance = this as T;
+            }
+
+            DontDestroyOnLoad(gameObject);
+            Init();
+        }
+
+        public virtual void Init()
+        {
+
+        }
+        
+        protected virtual void OnDestroy()
+        {
+            if (m_instance != null && m_instance == this) {
+                m_instance = null;
+                _isDestroied = true;   
+            }
+        }
     }
- 
-    protected virtual void Init()
-    {
-
-    }
-
-    public void DestroySelf()
-    {
-        Dispose();
-        MonoSingleton<T>.m_instance = null;
-        UnityEngine.Object.Destroy(gameObject);
-    }
-
-    public virtual void Dispose()
-    {
-
-    }
-
 }
